@@ -1,0 +1,8 @@
+# Local workspace
+.vscode
+
+# Python
+__pycache__/
+
+# Airflow
+logs/

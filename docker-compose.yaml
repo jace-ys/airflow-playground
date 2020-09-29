@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:12.2-alpine
+    environment:
+      POSTGRES_USER: airflow
+      POSTGRES_PASSWORD: airflow
+      POSTGRES_DB: airflow
+
+  init:
+    image: apache/airflow:1.10.12
+    command: initdb
+    depends_on:
+      - postgres
+    env_file:
+      - config/dev/airflow.env
+
+  webserver:
+    build: .
+    image: airflow-playground:latest
+    command: webserver
+    ports:
+      - 8080:8080
+    depends_on:
+      - postgres
+      - init
+    env_file:
+      - config/dev/airflow.env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+
+  scheduler:
+    build: .
+    image: airflow-playground:latest
+    command: scheduler
+    depends_on:
+      - postgres
+      - init
+    env_file:
+      - config/dev/airflow.env
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs

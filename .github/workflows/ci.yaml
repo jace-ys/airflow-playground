@@ -1,0 +1,37 @@
+name: ci
+
+on: push
+
+jobs:
+  setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.6.12"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-airflow-playground-${{ hashFiles('poetry.lock') }}
+          restore-keys: ${{ runner.os }}-airflow-playground-
+      - uses: dschep/install-poetry-action@v1
+      - name: Install dependencies
+        run: poetry install
+
+  lint:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.6.12"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-airflow-playground-${{ hashFiles('poetry.lock') }}
+          restore-keys: ${{ runner.os }}-airflow-playground-
+      - uses: dschep/install-poetry-action@v1
+      - name: Lint
+        run: poetry run black --check --diff .

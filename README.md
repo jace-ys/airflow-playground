@@ -1,3 +1,8 @@
+[![ci-badge]][ci-workflow]
+
+[ci-badge]: https://github.com/jace-ys/airflow-playground/workflows/ci/badge.svg
+[ci-workflow]: https://github.com/jace-ys/airflow-playground/actions?query=workflow%3Aci
+
 # Airflow Playground
 
 A playground repository for learning Airflow.

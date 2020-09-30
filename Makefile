@@ -1,10 +1,15 @@
-.PHONY: lint test exec
+.PHONY: all fmt test image exec
 
-lint:
+all: fmt test
+
+fmt:
 	poetry run black .
 
 test:
-	poetry run
+	poetry run python -m pytest -v test
+
+image:
+	docker build -t airflow-playground:latest .
 
 exec:
 	docker-compose exec scheduler bash

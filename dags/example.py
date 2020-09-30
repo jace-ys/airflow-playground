@@ -14,7 +14,7 @@ def subtract():
 
 
 dag = DAG(
-    "add_subtract",
+    "example",
     start_date=datetime.now() - timedelta(days=1),
     schedule_interval="@hourly",
 )

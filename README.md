@@ -65,5 +65,11 @@ A playground repository for learning Airflow.
 3. To run the test suites:
 
    ```shell
-   poetry run
+   make test
+   ```
+
+4. To run the code formatter:
+
+   ```shell
+   make fmt
    ```

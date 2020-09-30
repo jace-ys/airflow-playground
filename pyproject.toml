@@ -1,15 +1,23 @@
 [tool.poetry]
 name = "airflow-playground"
 version = "0.1.0"
-description = ""
+description = "A playground repository for learning Airflow."
+repository = "https://github.com/jace-ys/airflow-playground"
+homepage = "https://github.com/jace-ys/airflow-playground"
+readme = "README.md"
 authors = ["jace-ys <jaceys.tan@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.6.12"
+apache-airflow = "^1.10.12"
 
 [tool.poetry.dev-dependencies]
 black = "^20.8b1"
+pytest = "^6.1.0"
+
+[tool.pytest.ini_options]
+filterwarnings = "ignore::DeprecationWarning"
 
 [build-system]
-requires = ["poetry>=1.0"]
-build-backend = "poetry.masonry.api"
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

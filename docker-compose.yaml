@@ -20,6 +20,7 @@ services:
     build: .
     image: airflow-playground:latest
     command: webserver
+    restart: always
     ports:
       - 8080:8080
     depends_on:
@@ -35,6 +36,7 @@ services:
     build: .
     image: airflow-playground:latest
     command: scheduler
+    restart: always
     depends_on:
       - postgres
       - init

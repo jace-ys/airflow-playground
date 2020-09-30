@@ -33,5 +33,29 @@ jobs:
           key: ${{ runner.os }}-airflow-playground-${{ hashFiles('poetry.lock') }}
           restore-keys: ${{ runner.os }}-airflow-playground-
       - uses: dschep/install-poetry-action@v1
-      - name: Lint
+      - name: Lint code
         run: poetry run black --check --diff .
+
+  test:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.6.12"
+      - uses: actions/cache@v1
+        with:
+          path: ~/.cache/pypoetry
+          key: ${{ runner.os }}-airflow-playground-${{ hashFiles('poetry.lock') }}
+          restore-keys: ${{ runner.os }}-airflow-playground-
+      - uses: dschep/install-poetry-action@v1
+      - name: Run tests
+        run: make test
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build image
+        run: make image
